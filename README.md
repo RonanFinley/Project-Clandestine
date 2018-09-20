@@ -11,7 +11,7 @@ Project Clandestine the second version of Huntington Post (www.huntingtonpost.or
 There is no building needed.
 
 ## Setup
-There is no automated setup. You do, however, need to configure the MySQL server and account in the api.php file. You will also need to import this SQL database into your database: 
+There is no automated setup. You do, however, need to configure the MySQL server and account in the api.php file. You will also need to import this SQL database into your database: import.sql
 
 ## Live
 www.huntingtonpost.org
