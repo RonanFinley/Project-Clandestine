@@ -408,33 +408,16 @@ if($q == "saveAsDraft") {
     die();
 }
 if($q=="viewArticles") {
-    $page = $_REQUEST['page'];
-    if($page<0) {
-        die('page num too small');
-    }
     $link = connectToDatabase();
     if (!$link) {
         echo('could not connect');
         die();
     }
-    $page = mysqli_real_escape_string($link, $page);
-
-    $limit = 25;
     
-    $minlimit = $limit * $page;
-    $maxlimit = $limit * ( $page + 1 );
-    
-    $sql = $link->prepare("SELECT * FROM `articles` ORDER BY id DESC LIMIT ?, ?");
-    $sql->bind_param("ii",$minlimit,$maxlimit);
+    $sql = $link->prepare("SELECT * FROM `articles` ORDER BY id DESC");
     $sql->execute();
     $result = $sql->get_result();
     $sql->close();
-    
-    $numOfPages = floor(floatval(mysqli_fetch_assoc(mysqli_query($link, "SELECT id FROM `articles`"))["num_rows"]) / floatval($limit));
-    echo var_dump(mysqli_query($link, "SELECT id FROM `articles`"));
-    //we do not need to prepare the statement immidiiatly preceding this because it doesn't accept any user input
-    
-    echo 'Page ' . ($page+1) . '/'.($numOfPages+1).' - Showing '.($minlimit+1).'/'.$maxlimit.' sorted by Identification<hr/>';
     
     while($row = $result->fetch_assoc()) {
         echo '<div class="card">';
@@ -449,41 +432,18 @@ if($q=="viewArticles") {
         echo '</div>';
         echo '</div>';
     }
-    if($page!=0) {
-        echo '<button onclick="viewArticles('.($page-1).')" class="button">Previous</button>';
-    }
-    if($page!=$numOfPages) {
-        echo '<button onclick="viewArticles('.($page+1).')" class="button">Next</button>';
-    }
     die();
 }
 if($q=="viewDrafts") {
-    $page = $_REQUEST['page'];
-    if($page<0) {
-        die('page num too small');
-    }
     $link = connectToDatabase();
     if (!$link) {
         echo('could not connect');
         die();
     }
-    $page = mysqli_real_escape_string($link, $page);
-
-    $limit = 25;
-    
-    $minlimit = $limit * $page;
-    $maxlimit = $limit * ( $page + 1 );
-    
-    $sql = $link->prepare("SELECT * FROM `drafts` ORDER BY id DESC LIMIT ?, ?");
-    $sql->bind_param("ii",$minlimit,$maxlimit);
+    $sql = $link->prepare("SELECT * FROM `drafts` ORDER BY id DESC");
     $sql->execute();
     $result = $sql->get_result();
     $sql->close();
-    
-    $numOfPages = floor(floatval(mysqli_num_fields(mysqli_query($link, "SELECT id FROM `articles`"))) / floatval($limit));
-    //we do not need to prepare the statement immidiiatly preceding this because it doesn't accept any user input
-    
-    echo 'Page ' . ($page+1) . '/'.($numOfPages+1).' - Showing '.($minlimit+1).'/'.$maxlimit.' sorted by Identification<hr/>';
     
     while($row = $result->fetch_assoc()) {
         echo '<div class="card">';
@@ -497,12 +457,6 @@ if($q=="viewDrafts") {
         echo $row['date']."</p>";
         echo '</div>';
         echo '</div>';
-    }
-    if($page!=0) {
-        echo '<button onclick="viewDrafts('.($page-1).')" class="button">Previous</button>';
-    }
-    if($page!=$numOfPages) {
-        echo '<button onclick="viewDrafts('.($page+1).')" class="button">Next</button>';
     }
     die();
 }
