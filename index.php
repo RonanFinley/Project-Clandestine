@@ -48,7 +48,7 @@
                 if (!$link) { 
                     die('Could not connect: ' . mysqli_error() . ' - Please contact Admin'); //streamline in production
                 }
-                $sql = $link->prepare("SELECT * FROM `articles` WHERE date <= ? ORDER BY popularity DESC LIMIT 0 , 3");
+                $sql = $link->prepare("SELECT * FROM `articles` WHERE date <= ? ORDER BY popularity DESC,date DESC LIMIT 0 , 3");
                 $sql->bind_param("s", date("Y-m-d"));
                 $sql->execute();
                 $result = $sql->get_result();
@@ -71,7 +71,7 @@
                 
                 //ALL NEW
                 echo '<div class="article"><div class="body"><h1 class="primary secTitle">Recent Articles</h1>';
-                $sql->prepare("SELECT * FROM `articles` WHERE date <= ? ORDER BY date DESC LIMIT 0 , 3");
+                $sql->prepare("SELECT * FROM `articles` WHERE date <= ? ORDER BY date DESC,popularity DESC,id DESC LIMIT 0 , 3");
                 $sql->bind_param("s", date("Y-m-d"));
                 $sql->execute();
                 $result = $sql->get_result();
