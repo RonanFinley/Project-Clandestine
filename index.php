@@ -538,7 +538,7 @@ Have a good day!';
                             echo '<button onclick="newArticle()">New Article</button>';
                         echo '</div>';
                         echo '<p class="primary" style="display:block;">Your editor is our top priority. No kidding. Need anything done? Post it in the Web Development Channel in Slack or email support@incode-labs.com. We will do pretty much anything you need, because this is your editor.</p>';
-                        echo '<div id="output"></div>';
+                        echo '<div id="output"><h1>Writer</h1><p>Welcome to the Writer\'s center! We hope you love this editor<br/>Remember: By writing and publishing, you agree to the <a href="https://docs.google.com/document/d/1PhHqtwHbl8Ljw5qInCKAyQaTsGIfGEojuFrNs7p0-B0/edit?usp=sharing" target="_blank">Terms and Contract</a></div>';
                         echo '<div class="div-sm"></div>
                         <div class="div-lg"></div></div></div>';
                         
